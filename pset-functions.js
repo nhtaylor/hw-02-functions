@@ -30,6 +30,35 @@ Use the following test cases to confirm your program meets the success criteria
 console.log('Problem 1:')
 
 // Add your code below this line
+// logic for blackJack
+function blackJack(playerCardScore, dealerCardScore) {
+  // making sure we're playing poker
+  if (isNaN(parseInt(playerCardScore))|| isNaN(parseInt(dealerCardScore))) {
+    return "Doesn't look like you're playing Black Jack"
+  } else if (playerCardScore > 21 && dealerCardScore > 21) {
+    // if both players bust
+    return 0
+  } else if (playerCardScore > 21 && dealerCardScore <= 21) {
+    // if player busts
+    return dealerCardScore
+  } else if (playerCardScore <= 21 && dealerCardScore > 21) {
+    // if dealer busts
+    return playerCardScore
+  } else if (playerCardScore > dealerCardScore) {
+    // if player's hand is better
+    return playerCardScore
+  } else if (dealerCardScore > playerCardScore) {
+    return dealerCardScore
+  } else if (playerCardScore === dealerCardScore) {
+    return playerCardScore
+  }
+}
+
+// test cases
+console.log(blackJack(19, 21))
+console.log(blackJack(22, 22))
+console.log(blackJack(19, 22))
+console.log(blackJack(21, 21))
 
 // Add your code above this line
 
@@ -75,6 +104,44 @@ Use the following test cases to confirm your program meets the success criteria
 console.log('Problem 2:')
 
 // Add your code below this line
+function scrabbleScore(word) {
+  let score = 0
+
+  // make sure it's a string
+  // testing whether a string is an actual word
+  // (or an accepted Scrabble word)
+  // is much harder
+  if (typeof word === "string") {
+    word = word.toLowerCase()
+  } else {
+    return "scrabbleScore() requires a string parameter."
+  }
+
+  // going through character and giving them points values
+  for (i = 0; i < word.length; i++) {
+    if (word[i] === 'q' || word[i] === 'z') {
+      score += 10
+    } else if (word[i] === 'j' || word[i] === 'x') {
+      score += 8
+    } else if (word[i] === 'k') {
+      score += 5
+    } else if (word[i] === 'f' || word[i] === 'h' || word[i] === 'v' || word[i] === 'w' || word[i] === 'y') {
+      score += 4
+    } else if (word[i] === 'b' || word[i] === 'c' || word[i] === 'm' || word[i] === 'p') {
+      score += 3
+    } else if (word[i] === 'd' || word[i] === 'g') {
+      score += 2
+    } else if (word[i] === 'a' || word[i] === 'e' || word[i] === 'i' || word[i] === 'o' || word[i] === 'u' || word[i] === 'l' || word[i] === 'n' || word[i] === 'r' || word[i] === 's' || word[i] === 't') {
+      score += 1
+    }
+  }
+  return score
+}
+
+// test cases
+console.log(scrabbleScore("cabbage"))
+console.log(scrabbleScore("javascript"))
+console.log(scrabbleScore("function"))
 
 // Add your code above this line
 
@@ -114,6 +181,41 @@ Use the following test cases to confirm your program meets the success criteria
 console.log('Problem 3:')
 
 // Add your code below this line
+// creating palindrome function
+function isPalindrome(word) {
+
+  // creating result variable
+  let result
+
+  // making sure we're dealing with a string
+  if (typeof word === "string") {
+    word = word.toLowerCase()
+  } else {
+    return "isPalindrome() requires a string parameter."
+  }
+
+  // palindrome logic
+  for (i = 0; i < (word.length / 2); i++) {
+    if (word[i] === word[word.length - (1 + i)]) {
+      // do nothing
+    } else {
+      result = false
+    }
+  }
+
+  // now evaluating whole word
+  if (result === false) {
+    return false
+  } else {
+    return true
+  }
+}
+
+// test cases
+console.log(isPalindrome("noon"))
+console.log(isPalindrome("racecar"))
+console.log(isPalindrome("moon"))
+console.log(isPalindrome("run"))
 
 // Add your code above this line
 
@@ -147,6 +249,39 @@ Use the following test cases to confirm your program meets the success criteria
 console.log('Problem 4:')
 
 // Add your code below this line
+function doubleLetters(word) {
+
+  // creating result variable
+  let result
+
+  // making sure we're dealing with a string
+  if (typeof word === "string") {
+    word = word.toLowerCase()
+  } else {
+    return "doubleLetters() requires a string parameter."
+  }
+
+  // double adjacent letter logic
+  for (i = 0; i < (word.length - 1); i++) {
+    if (word[i] === word[1 + i]) {
+      result = true
+    } else {
+      // do nothing
+    }
+  }
+
+  // now evaluating whole word
+  if (result === true) {
+    return true
+  } else {
+    return false
+  }
+}
+
+// test cases
+console.log(doubleLetters("loop"))
+console.log(doubleLetters("rune"))
+console.log(doubleLetters("apple"))
 
 // Add your code above this line
 
@@ -207,6 +342,41 @@ Use the following test cases to confirm your program meets the success criteria
 console.log('Problem 5 - bonus:')
 
 // Add your code below this line
+
+
+function wordCount(phrase) {
+
+  // making sure we're dealing with a string
+  if (typeof phrase === "string") {
+    phrase = phrase.toLowerCase()
+  } else {
+    return "wordCount() requires a string parameter."
+  }
+
+  // clean up string by removing punctuation
+  phrase = phrase.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"")
+
+  // break up single string
+  const wordArray = phrase.split(' ')
+  // create array to count occurrences
+  const countArray = {}
+
+  // running through array and counting occurences
+  for (let i = 0; i < wordArray.length; i++) {
+    word = wordArray[i]
+    if (countArray[word] === undefined) {
+      countArray[word] = 1
+    } else {
+      countArray[word] += 1
+    }
+  }
+  return countArray
+}
+
+//test cases
+console.log(wordCount("olly olly in come free"))
+console.log(wordCount("Baby shark, doo doo doo doo doo doo"))
+console.log(wordCount("Humpty Dumpty sat on a wall Humpty Dumpty had a great fall"))
 
 // Add your code above this line
 
